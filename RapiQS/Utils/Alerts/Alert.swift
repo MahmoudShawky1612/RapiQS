@@ -25,6 +25,26 @@ struct AlertContext {
                                         dismissButton: .default(Text("OK"))
     );
     
+    static let invalidUserName     = AlertItem(
+                                        title: Text("Failed To Save Data"),
+                                        message: Text("Make sure user name is inserted."),
+                                        dismissButton: .default(Text("OK"))
+                                        
+                                        
+    );
+    
+    static let invalidUerImage     = AlertItem(
+                                        title: Text("Failed To Save Data"),
+                                        message: Text("Make sure user image is inserted."),
+                                        dismissButton: .default(Text("OK"))
+    );
+    
+    static let successLogIn     = AlertItem(
+                                        title: Text("Yaaay, You made it"),
+                                        message: Text("We're glad ro have you with us."),
+                                        dismissButton: .default(Text("OK"))
+    );
+    
 
 
 }
