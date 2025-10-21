@@ -9,12 +9,14 @@ import SwiftUI
 
 struct AvatarImage: View {
     let avatarImage: UIImage?
+    var width : CGFloat = 100
+    var height : CGFloat = 100
 
     var body: some View {
         Image(uiImage: avatarImage ?? UIImage(resource: .deafaultAvatar))
             .resizable()
             .aspectRatio(contentMode: .fill)
-            .frame(width: 100, height: 100)
+            .frame(width: width, height: height)
             .clipShape(.circle)
             .shadow(color:Color.brownPrimary,radius: 5, x: 0, y: 2)
         

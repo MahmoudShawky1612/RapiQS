@@ -12,4 +12,5 @@ import Foundation
 struct User: Codable {
     var userName: String = ""
     var userImage: Data = Data()
+    var points: Int = 0
 }

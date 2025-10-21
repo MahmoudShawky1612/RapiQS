@@ -8,8 +8,33 @@
 import SwiftUI
 
 struct GameMap: View {
+    let levels = LevelService.Levels
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            ZStack(alignment: .topLeading, ) {
+                ScrollView {
+                    
+                    ForEach(levels.reversed()){ level in
+                        NavigationLink(destination: QuestionView(level: level)
+                            .navigationBarBackButtonHidden(true)
+                            .interactiveDismissDisabled(true)
+                                       
+                        )
+                        {
+                            LevelCircle(levelNumber: level.number)
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                    .rotationEffect(.degrees(180))
+                    
+                }
+                .rotationEffect(.degrees(180))
+                
+                UserInfoHeader()
+                
+            }
+        }
     }
 }
 
@@ -21,8 +46,8 @@ struct GameMap: View {
 
 /*             .onTapGesture {
  if let appDomain = Bundle.main.bundleIdentifier {
-     UserDefaults.standard.removePersistentDomain(forName: appDomain)
+ UserDefaults.standard.removePersistentDomain(forName: appDomain)
  }
-
-}
-*/
+ 
+ }
+ */
