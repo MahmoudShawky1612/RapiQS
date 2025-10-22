@@ -39,6 +39,7 @@ struct UserInfoHeader: View {
                             endPoint: .topLeading
                         )
                     )
+                    .shadow(color:.primaryBlue.opacity(0.6), radius: 3,  x: 0,y: 2)
                     .padding(.leading)
                     .padding(.top,5)
                     .padding(.bottom, 5)
@@ -58,7 +59,7 @@ struct UserInfoHeader: View {
             .shadow(color:Color.orangeTrophy, radius: 5, x: 0, y: 2)
             .padding()
         }
-         .onChange(of: userData) {
+        .onChange(of: userData) {
             loadUser()
         }
         .onAppear {
