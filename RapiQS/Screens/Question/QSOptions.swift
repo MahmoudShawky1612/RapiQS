@@ -9,31 +9,33 @@ import SwiftUI
 
 struct QSOptions: View {
     @StateObject var viewModel: QSOptionsViewModel
-
-    var body: some View {
+     var body: some View {
         VStack(alignment: .center) {
             HStack {
-                Image(systemName: "clock")
+                Image(systemName: "clock.fill")
+                    .foregroundColor(viewModel.timeColor)
                 Text("\(Int(viewModel.remainingTime))s")
                     .font(.system(size: 24, weight: .bold))
-                    .foregroundColor(.yellow)
+                    .foregroundColor(viewModel.timeColor)
             }
-
+            
             Text(viewModel.level.questions[viewModel.qsNumber].title)
                 .frame(maxWidth: .infinity, minHeight: 150)
                 .font(.headline)
                 .foregroundColor(.primary)
                 .background(Color.yellow)
                 .cornerRadius(10)
+                .shadow(radius: 5, x:1, y:2)
+            
                 .padding()
-
+            
             VStack {
                 ForEach(0..<2) { row in
                     HStack {
                         ForEach(0..<2) { col in
                             let index = row * 2 + col
                             Text(viewModel.level.questions[viewModel.qsNumber].options[index].String)
-                                .frame(maxWidth: .infinity)
+                                .frame(maxWidth: .infinity, minHeight: 40)
                                 .font(.headline)
                                 .foregroundColor(.primary)
                                 .background(viewModel.buttonBackgroundColor)
@@ -43,8 +45,9 @@ struct QSOptions: View {
                                     let optionId = viewModel.level.questions[viewModel.qsNumber].options[index].id
                                     viewModel.checkIfCorrectAnswer(optionId: optionId)
                                 }
+                                .shadow(radius: 5, x:1, y:2)
                         }
-            
+                        
                     }
                 }
             }
@@ -56,7 +59,12 @@ struct QSOptions: View {
         .onDisappear {
             viewModel.stopTimer()
         }
+        .onChange(of: viewModel.remainingTime){
+            viewModel.changeTimeColor()
+        }
+        
     }
+    
 }
 
 #Preview {

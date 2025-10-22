@@ -16,6 +16,7 @@ class QSOptionsViewModel: ObservableObject {
     @Published var remainingTime: Double = 0
     @Published var buttonBackgroundColor: Color = .yellow
     @Published var timerRunning: Bool = false
+    @Published var timeColor: Color = .blue
 
     var timer: Timer?
     @Published var level: Level
@@ -67,6 +68,15 @@ class QSOptionsViewModel: ObservableObject {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 self.buttonBackgroundColor = .yellow
             }
+        }
+    }
+    func changeTimeColor() {
+        if remainingTime < 5 {
+            timeColor = .red
+        } else if remainingTime < 10 {
+            timeColor = .orange
+        } else {
+            timeColor = .blue
         }
     }
 }
