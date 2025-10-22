@@ -38,8 +38,7 @@ class SignInViewModel: ObservableObject {
         do {
             let data = try JSONEncoder().encode(user)
             userData = data
-            alertItem = AlertContext.successLogIn
-            LevelServiceClass.UnlockNextLevel(1, 0)
+             LevelServiceClass.UnlockNextLevel(1, 0)
             isLoading = false
  
         } catch{

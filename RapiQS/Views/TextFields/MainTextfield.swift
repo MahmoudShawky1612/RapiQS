@@ -12,7 +12,7 @@ struct MainTextfield: View {
     @Binding var username: String
     var body: some View {
         TextField(placeholder, text: $username)
-            .frame(width: 200)
+            .frame(width: 250)
             .padding()
             .background(Color(.systemBackground))
             .cornerRadius(8)

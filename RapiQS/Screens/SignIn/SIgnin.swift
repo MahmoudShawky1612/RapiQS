@@ -14,7 +14,7 @@ struct SIgnin: View {
     @StateObject private var signInViewModel = SignInViewModel()
     var body: some View {
         NavigationView {
-            VStack(alignment: .center, spacing: 100) {
+            VStack(alignment: .center, spacing: 30) {
                 PhotosPicker( selection: $photoPickerItem, matching: .images){
                     AvatarImage(avatarImage: avatarImage)
                     
@@ -34,9 +34,9 @@ struct SIgnin: View {
                     alignment: .topTrailing
                 )
                 
-                MainTextfield(placeholder: "Enter your username", username: $signInViewModel.user.userName)
-                
-                MainButton(action: { signInViewModel.saveUser() }, title: "Start Playing!", isLoading: signInViewModel.isLoading)
+                MainTextfield(placeholder: "What you wanna us to call you?", username: $signInViewModel.user.userName)
+                Spacer().frame(height: 50)
+                MainButton(action: { signInViewModel.saveUser() }, title: "Start the fun!", isLoading: signInViewModel.isLoading)
             }.onChange(of: photoPickerItem){_,_ in
                 Task{
                     if let photoPickerItem,
@@ -55,8 +55,7 @@ struct SIgnin: View {
                 
             }
             
-            .navigationTitle(Text("Sign In"))
-        }.alert(item : $signInViewModel.alertItem ){ alertItem in
+         }.alert(item : $signInViewModel.alertItem ){ alertItem in
             Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
         }
     }

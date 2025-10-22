@@ -7,10 +7,9 @@ struct RapiQSApp: App {
     var body: some Scene {
         WindowGroup {
             if let _ = userData {
-                GameMap() 
+                GameMap()
             } else {
-                SIgnin()
-            }
+                SIgnin()            }
         }
     }
 }

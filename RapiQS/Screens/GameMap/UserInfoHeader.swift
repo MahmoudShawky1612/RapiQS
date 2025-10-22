@@ -14,35 +14,51 @@ struct UserInfoHeader: View {
         HStack {
             HStack {
                 AvatarImage(avatarImage: UIImage(data: user.userImage), width: 50, height: 50)
-                    .onTapGesture {
-                     if let appDomain = Bundle.main.bundleIdentifier {
-                     UserDefaults.standard.removePersistentDomain(forName: appDomain)
-                     }
-                     
-                     }
+                
                 Text(user.userName.isEmpty ? "Guest" : user.userName)
+                    .foregroundStyle(.white)
+                    .font(.system(size: 15, weight: .bold, design: .rounded))
                     .padding()
+                    .lineLimit(2)
+                
             }
-            .background(Color.red)
+            .background(LinearGradient(colors: [.black, .primaryBlue], startPoint: .bottomLeading, endPoint: .topTrailing))
             .cornerRadius(25)
+            .shadow(color:Color.primaryBlue, radius: 5, x: 0, y: 2)
             .padding()
             
             Spacer()
             
             HStack {
-                Image(systemName: "trophy.circle.fill")
-                    .font(.system(size: 30))
-                    .foregroundColor(.white)
+                Image(systemName: "trophy.fill")
+                    .font(.system(size: 20))
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [.orangeTrophy, .yellowTrophy],
+                            startPoint: .bottomTrailing,
+                            endPoint: .topLeading
+                        )
+                    )
+                    .padding(.leading)
+                    .padding(.top,5)
+                    .padding(.bottom, 5)
                 
-                Text("+\(user.points)")
-                    .padding()
+                
+                Text("+ \(user.points)")
+                    . foregroundStyle(.white)
+                    .font(.system(size: 15, weight: .medium, design: .rounded))
+                    .padding(.trailing,)
+                    .padding(.leading)
+                    .lineLimit(3)
             }
-            .background(Color.blue)
+            .background(
+                LinearGradient(colors: [.orangeTrophy, .primaryBrown], startPoint: .topLeading, endPoint: .bottomTrailing)
+            )
             .cornerRadius(25)
+            .shadow(color:Color.orangeTrophy, radius: 5, x: 0, y: 2)
             .padding()
         }
-        // 👇 Automatically decode user data when it changes
-        .onChange(of: userData) {
+         .onChange(of: userData) {
             loadUser()
         }
         .onAppear {
