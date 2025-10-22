@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct FinishLevelView: View {
+    @Binding var points: Int
     var body: some View {
-        Text("Gongraaats !!!!!!!!!!")
+        Text("\(points)")
     }
 }
 
 #Preview {
-    FinishLevelView()
+    FinishLevelView(points: .constant(20))
 }

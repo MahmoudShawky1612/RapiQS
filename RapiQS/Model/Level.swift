@@ -18,7 +18,7 @@ struct Question {
     var id : Int
     var title : String
     var options : [Option]
-    var time : Int
+    var time : Double
     var correctAnswer: Int
     var QuestionDifficulty: QuestionDifficulty
     var points: Int

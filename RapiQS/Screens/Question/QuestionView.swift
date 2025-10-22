@@ -11,23 +11,16 @@ struct QuestionView: View {
     @State var i  : Int = 0
     var level: Level
     @State var finished = false
+    @State var points: Int = 0
     var body: some View {
         VStack{
-            QSOptions(i: $i, level: level)
+            QSOptions(i: $i, finished: $finished, points: $points,level: level, )
             Spacer().frame(height: 80)
             HStack{
                 Spacer()
                 
-                NextButon(action : {
-                    if i < level.questions.count - 1 {
-                        i += 1
-                    } else {
-                        finished = true
-                    }
-                })
-                
             }.fullScreenCover(isPresented: $finished){
-                FinishLevelView()
+                FinishLevelView(points: $points)
             }.navigationBarBackButtonHidden(true)
                 .interactiveDismissDisabled(true)
             

@@ -35,6 +35,7 @@ struct GameMap: View {
                 
             }
         }
+
     }
 }
 
