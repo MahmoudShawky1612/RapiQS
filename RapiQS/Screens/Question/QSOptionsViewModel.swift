@@ -15,8 +15,7 @@ class QSOptionsViewModel: ObservableObject {
     @Published var points: Int
     @Published var remainingTime: Double = 0
     @Published var buttonBackgroundColor: LinearGradient = LinearGradient(colors: [Color(.systemBackground), Color(.systemBackground).opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
-
-
+    @Published var isCorrect: Bool = false
     @Published var timerRunning: Bool = false
     @Published var timeColor: Color = .blue
 
@@ -55,6 +54,10 @@ class QSOptionsViewModel: ObservableObject {
     func checkIfCorrectAnswer(optionId: Int) {
         if optionId == level.questions[qsNumber].correctAnswer {
             points += level.questions[qsNumber].points
+            isCorrect = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                        self.isCorrect = false
+                    }
             print("✅ Correct! Points:", points)
 
             if qsNumber < level.questions.count - 1 {

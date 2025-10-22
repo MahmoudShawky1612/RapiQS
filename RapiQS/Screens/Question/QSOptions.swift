@@ -10,56 +10,70 @@ import SwiftUI
 struct QSOptions: View {
     @StateObject var viewModel: QSOptionsViewModel
     var body: some View {
-        VStack(alignment: .center) {
-            Spacer().frame(height: 90)
-            HStack {
-                Image(systemName: "clock.fill")
-                    .foregroundColor(viewModel.timeColor)
-                Text("\(Int(viewModel.remainingTime))s")
-                    .font(.system(size: 24, weight: .bold))
-                    .foregroundColor(viewModel.timeColor)
-            }
-            .frame(width: 200, height: 50)
-            .background(
-                Capsule()
-                    .fill(Color(.systemBackground))
-                    .shadow(color: viewModel.timeColor, radius: 8, x: 0, y: 4)
-            )
-            Spacer().frame(height: 90)
-            
-            Text(viewModel.level.questions[viewModel.qsNumber].title)
-                .frame(maxWidth: .infinity, minHeight: 150)
-                .font(.headline)
-                .foregroundColor(.primary)
-                .background(LinearGradient(colors: [Color(.systemBackground), Color(.systemBackground).opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing))
-                .cornerRadius(10)
-                .shadow(color: viewModel.timeColor ,radius: 5, x:0, y:2)
-                .multilineTextAlignment(.center)
-                .padding()
-            
-            VStack {
-                ForEach(0..<2) { row in
-                    HStack {
-                        ForEach(0..<2) { col in
-                            let index = row * 2 + col
-                            Text(viewModel.level.questions[viewModel.qsNumber].options[index].String)
-                                .frame(maxWidth: .infinity, minHeight: 40)
-                                .font(.headline)
-                                .foregroundColor(.primary)
-                                .background(viewModel.buttonBackgroundColor)
-                                .cornerRadius(10)
-                                .multilineTextAlignment(.center)
-                                .padding()
-                                .onTapGesture {
-                                    let optionId = viewModel.level.questions[viewModel.qsNumber].options[index].id
-                                    viewModel.checkIfCorrectAnswer(optionId: optionId)
-                                }
-                                .shadow(color: viewModel.timeColor,radius: 5, x:0, y:2)
+        ZStack {
+            VStack(alignment: .center) {
+                Spacer().frame(height: 90)
+                HStack {
+                    Image(systemName: "clock.fill")
+                        .foregroundColor(viewModel.timeColor)
+                    Text("\(Int(viewModel.remainingTime))s")
+                        .font(.system(size: 24, weight: .bold))
+                        .foregroundColor(viewModel.timeColor)
+                }
+                .frame(width: 200, height: 50)
+                .background(
+                    Capsule()
+                        .fill(Color(.systemBackground))
+                        .shadow(color: viewModel.timeColor, radius: 8, x: 0, y: 4)
+                )
+                Spacer().frame(height: 90)
+                
+                Text(viewModel.level.questions[viewModel.qsNumber].title)
+                    .frame(maxWidth: .infinity, minHeight: 150)
+                    .font(.headline)
+                    .foregroundColor(.primary)
+                    .background(LinearGradient(colors: [Color(.systemBackground), Color(.systemBackground).opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .cornerRadius(10)
+                    .shadow(color: viewModel.timeColor ,radius: 5, x:0, y:2)
+                    .multilineTextAlignment(.center)
+                    .padding()
+                
+                VStack {
+                    ForEach(0..<2) { row in
+                        HStack {
+                            ForEach(0..<2) { col in
+                                let index = row * 2 + col
+                                Text(viewModel.level.questions[viewModel.qsNumber].options[index].String)
+                                    .frame(maxWidth: .infinity, minHeight: 40)
+                                    .font(.headline)
+                                    .foregroundColor(.primary)
+                                    .background(viewModel.buttonBackgroundColor)
+                                    .cornerRadius(10)
+                                    .multilineTextAlignment(.center)
+                                    .padding()
+                                    .onTapGesture {
+                                        let optionId = viewModel.level.questions[viewModel.qsNumber].options[index].id
+                                        viewModel.checkIfCorrectAnswer(optionId: optionId)
+                                    }
+                                    .shadow(color: viewModel.timeColor,radius: 5, x:0, y:2)
+                            }
                         }
                     }
+                    Spacer()
                 }
-                Spacer()
+                
+                HStack {
+                    Text("Points: \(viewModel.points)")
+                        .rotationEffect(.degrees(-30))
+                    Spacer()
+                    Text("Difficulty: \(viewModel.level.questions[viewModel.qsNumber].QuestionDifficulty)")
+                        .rotationEffect(.degrees(30))
+
+                        
+                }.padding()
             }
+            
+            FlyingCoinsView(trigger: $viewModel.isCorrect)
         }
         .padding()
         .onAppear {
