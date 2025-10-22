@@ -51,9 +51,14 @@ struct QSOptions: View {
                                     .cornerRadius(10)
                                     .multilineTextAlignment(.center)
                                     .padding()
+                                    .modifier(ShakeModifier(animatableData: viewModel.isFalseAnswer ? 1 : 0))
                                     .onTapGesture {
                                         let optionId = viewModel.level.questions[viewModel.qsNumber].options[index].id
                                         viewModel.checkIfCorrectAnswer(optionId: optionId)
+                                        if viewModel.isFalseAnswer {
+                                            let impct = UIImpactFeedbackGenerator(style: .heavy)
+                                            impct.impactOccurred()
+                                        }
                                     }
                                     .shadow(color: viewModel.timeColor,radius: 5, x:0, y:2)
                             }

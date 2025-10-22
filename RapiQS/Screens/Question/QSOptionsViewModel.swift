@@ -16,6 +16,7 @@ class QSOptionsViewModel: ObservableObject {
     @Published var remainingTime: Double = 0
     @Published var buttonBackgroundColor: LinearGradient = LinearGradient(colors: [Color(.systemBackground), Color(.systemBackground).opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
     @Published var isCorrect: Bool = false
+    @Published var isFalseAnswer: Bool = false
     @Published var timerRunning: Bool = false
     @Published var timeColor: Color = .blue
 
@@ -58,8 +59,7 @@ class QSOptionsViewModel: ObservableObject {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                         self.isCorrect = false
                     }
-            print("✅ Correct! Points:", points)
-
+ 
             if qsNumber < level.questions.count - 1 {
                 qsNumber += 1
                 buttonBackgroundColor = LinearGradient(colors: [Color(.systemBackground), Color(.systemBackground).opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
@@ -69,7 +69,21 @@ class QSOptionsViewModel: ObservableObject {
                 buttonBackgroundColor = LinearGradient(colors: [Color(.systemBackground), Color(.systemBackground).opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
             }
         } else {
-            buttonBackgroundColor = LinearGradient(colors: [.red, .pink], startPoint: .topLeading, endPoint: .bottomTrailing)
+            withAnimation(.default) {
+                isFalseAnswer = true
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                withAnimation(.default) {
+                    self.isFalseAnswer = false
+                }
+            }
+
+            buttonBackgroundColor = LinearGradient(
+                colors: [Color(red: 0.95, green: 0.20, blue: 0.20), Color(red: 0.60, green: 0.00, blue: 0.00)],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 self.buttonBackgroundColor = LinearGradient(colors: [Color(.systemBackground), Color(.systemBackground).opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
             }
