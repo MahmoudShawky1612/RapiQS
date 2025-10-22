@@ -9,8 +9,9 @@ import SwiftUI
 
 struct QSOptions: View {
     @StateObject var viewModel: QSOptionsViewModel
-     var body: some View {
+    var body: some View {
         VStack(alignment: .center) {
+            Spacer().frame(height: 90)
             HStack {
                 Image(systemName: "clock.fill")
                     .foregroundColor(viewModel.timeColor)
@@ -18,15 +19,22 @@ struct QSOptions: View {
                     .font(.system(size: 24, weight: .bold))
                     .foregroundColor(viewModel.timeColor)
             }
+            .frame(width: 200, height: 50)
+            .background(
+                Capsule()
+                    .fill(Color(.systemBackground))
+                    .shadow(color: viewModel.timeColor, radius: 8, x: 0, y: 4)
+            )
+            Spacer().frame(height: 90)
             
             Text(viewModel.level.questions[viewModel.qsNumber].title)
                 .frame(maxWidth: .infinity, minHeight: 150)
                 .font(.headline)
                 .foregroundColor(.primary)
-                .background(Color.yellow)
+                .background(LinearGradient(colors: [Color(.systemBackground), Color(.systemBackground).opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing))
                 .cornerRadius(10)
-                .shadow(radius: 5, x:1, y:2)
-            
+                .shadow(color: viewModel.timeColor ,radius: 5, x:0, y:2)
+                .multilineTextAlignment(.center)
                 .padding()
             
             VStack {
@@ -40,16 +48,17 @@ struct QSOptions: View {
                                 .foregroundColor(.primary)
                                 .background(viewModel.buttonBackgroundColor)
                                 .cornerRadius(10)
+                                .multilineTextAlignment(.center)
                                 .padding()
                                 .onTapGesture {
                                     let optionId = viewModel.level.questions[viewModel.qsNumber].options[index].id
                                     viewModel.checkIfCorrectAnswer(optionId: optionId)
                                 }
-                                .shadow(radius: 5, x:1, y:2)
+                                .shadow(color: viewModel.timeColor,radius: 5, x:0, y:2)
                         }
-                        
                     }
                 }
+                Spacer()
             }
         }
         .padding()

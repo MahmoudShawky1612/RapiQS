@@ -14,7 +14,9 @@ class QSOptionsViewModel: ObservableObject {
     @Published var finished: Bool
     @Published var points: Int
     @Published var remainingTime: Double = 0
-    @Published var buttonBackgroundColor: Color = .yellow
+    @Published var buttonBackgroundColor: LinearGradient = LinearGradient(colors: [Color(.systemBackground), Color(.systemBackground).opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
+
+
     @Published var timerRunning: Bool = false
     @Published var timeColor: Color = .blue
 
@@ -57,16 +59,16 @@ class QSOptionsViewModel: ObservableObject {
 
             if qsNumber < level.questions.count - 1 {
                 qsNumber += 1
-                buttonBackgroundColor = .yellow
+                buttonBackgroundColor = LinearGradient(colors: [Color(.systemBackground), Color(.systemBackground).opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
                 startGame()
             } else {
                 finished = true
-                buttonBackgroundColor = .yellow
+                buttonBackgroundColor = LinearGradient(colors: [Color(.systemBackground), Color(.systemBackground).opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
             }
         } else {
-            buttonBackgroundColor = .red
+            buttonBackgroundColor = LinearGradient(colors: [.red, .pink], startPoint: .topLeading, endPoint: .bottomTrailing)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                self.buttonBackgroundColor = .yellow
+                self.buttonBackgroundColor = LinearGradient(colors: [Color(.systemBackground), Color(.systemBackground).opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
             }
         }
     }
