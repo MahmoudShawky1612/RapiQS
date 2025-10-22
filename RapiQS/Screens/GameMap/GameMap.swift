@@ -10,34 +10,38 @@ import SwiftUI
 struct GameMap: View {
     let levels = LevelService.Levels
     
+    
     var body: some View {
         NavigationStack {
-            ZStack(alignment: .topLeading, ) {
+            ZStack(alignment: .topLeading) {
                 ScrollView {
-                    
-                    ForEach(levels.reversed()){ level in
-                        NavigationLink(destination: QuestionView(level: level)
-                            .navigationBarBackButtonHidden(true)
-                            .interactiveDismissDisabled(true)
-                                       
-                        )
-                        {
-                            LevelCircle(levelNumber: level.number)
+                    ForEach(levels.reversed()) { level in
+                        let unlocked = LevelServiceClass.getPassedLevels().contains(level.number)
+                        
+                        if unlocked {
+                             NavigationLink(
+                                destination: QuestionView(level: level)
+                                    .navigationBarBackButtonHidden(true)
+                                    .interactiveDismissDisabled(true)
+                            ) {
+                                LevelCircle(levelNumber: level.number)
+                            }
+                        } else {
+                             LevelCircle(levelNumber: level.number)
+                                 
                         }
                     }
                     .frame(maxWidth: .infinity)
                     .rotationEffect(.degrees(180))
-                    
                 }
                 .rotationEffect(.degrees(180))
                 
                 UserInfoHeader()
-                
             }
         }
-
     }
 }
+
 
 #Preview {
     GameMap()

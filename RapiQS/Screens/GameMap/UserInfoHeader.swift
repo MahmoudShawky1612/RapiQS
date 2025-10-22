@@ -4,43 +4,61 @@
 //
 //  Created by DODJE on 21/10/2025.
 //
-
 import SwiftUI
 
 struct UserInfoHeader: View {
-    var userImage = UserHelperClass.getUserImage()
-    var userName = UserHelperClass.getUserName()
-    var userPoints = UserHelperClass.getUserPoints()
+    @AppStorage("user") private var userData: Data?      // 👈 This is the saved user data
+    @State private var user = User()                     // local user model
+    
     var body: some View {
-        HStack{
+        HStack {
             HStack {
-                AvatarImage(avatarImage: userImage, width: 50, height: 50)
-                Text( userName ?? "Guest")
+                AvatarImage(avatarImage: UIImage(data: user.userImage), width: 50, height: 50)
+                    .onTapGesture {
+                     if let appDomain = Bundle.main.bundleIdentifier {
+                     UserDefaults.standard.removePersistentDomain(forName: appDomain)
+                     }
+                     
+                     }
+                Text(user.userName.isEmpty ? "Guest" : user.userName)
                     .padding()
-            } .background(Color.red)
-                .cornerRadius(25)
-                .padding()
+            }
+            .background(Color.red)
+            .cornerRadius(25)
+            .padding()
+            
             Spacer()
-            HStack{
+            
+            HStack {
                 Image(systemName: "trophy.circle.fill")
                     .font(.system(size: 30))
                     .foregroundColor(.white)
-                    .onTapGesture {
-                 if let appDomain = Bundle.main.bundleIdentifier {
-                 UserDefaults.standard.removePersistentDomain(forName: appDomain)
-                 }
-                 
-                 }
-                Text("+\(String(describing: userPoints ?? 0))")
-                    .padding()
                 
-            }.background(Color.blue)
-                .cornerRadius(25)
-                .padding()
-            
+                Text("+\(user.points)")
+                    .padding()
+            }
+            .background(Color.blue)
+            .cornerRadius(25)
+            .padding()
+        }
+        // 👇 Automatically decode user data when it changes
+        .onChange(of: userData) {
+            loadUser()
+        }
+        .onAppear {
+            loadUser()
         }
     }
+    
+    private func loadUser() {
+        guard let userData = userData,
+              let decodedUser = try? JSONDecoder().decode(User.self, from: userData) else {
+            return
+        }
+        user = decodedUser
+    }
 }
+
 
 #Preview {
     UserInfoHeader()

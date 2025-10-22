@@ -8,106 +8,104 @@
 import SwiftUI
 
 struct QSOptions: View {
-    @Binding var i: Int
-    @State var buttonBackgroundColor: Color = .yellow
-    @Binding var finished: Bool
-    @State var timerRunning = false
-    @State var remainingTime: TimeInterval = 5
-    @State private var timer: Timer? = nil
-    @State var optionId: Int?
-    @Binding var points: Int
-    var level: Level
-    
-    
-    
+    @StateObject var viewModel: QSOptionsViewModel
+
     var body: some View {
         VStack(alignment: .center) {
-            HStack{
+            HStack {
                 Image(systemName: "clock")
-                Text("\(Int(remainingTime))s")
+                Text("\(Int(viewModel.remainingTime))s")
                     .font(.system(size: 24, weight: .bold))
                     .foregroundColor(.yellow)
-             }
-            
-            Text(level.questions[i].title)
+            }
+
+            Text(viewModel.level.questions[viewModel.qsNumber].title)
                 .frame(maxWidth: .infinity, minHeight: 150)
                 .font(.headline)
                 .foregroundColor(.primary)
                 .background(Color.yellow)
                 .cornerRadius(10)
                 .padding()
-            
+
             VStack {
                 ForEach(0..<2) { row in
                     HStack {
                         ForEach(0..<2) { col in
                             let index = row * 2 + col
-                            Text(level.questions[i].options[index].String)
+                            Text(viewModel.level.questions[viewModel.qsNumber].options[index].String)
                                 .frame(maxWidth: .infinity)
                                 .font(.headline)
                                 .foregroundColor(.primary)
-                                .background(buttonBackgroundColor)
+                                .background(viewModel.buttonBackgroundColor)
                                 .cornerRadius(10)
                                 .padding()
                                 .onTapGesture {
-                                    optionId = level.questions[i].options[index].id
-                                    checkIfCorrectAnswer(optionId: optionId!)
+                                    let optionId = viewModel.level.questions[viewModel.qsNumber].options[index].id
+                                    viewModel.checkIfCorrectAnswer(optionId: optionId)
                                 }
                         }
+            
                     }
                 }
             }
-        }.padding()
-            .onAppear{
-                startGame()
-            }
-            .onDisappear{
-                stopTimer()
-            }
-    }
-    func startGame(){
-        stopTimer()
-        remainingTime = level.questions[i].time
-        timerRunning = true
-        
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true){ timer in
-            if remainingTime > 0 {
-                remainingTime -= 1
-            } else {
-                points = 0
-                timer.invalidate()
-                timerRunning = false
-                finished = true
-            }
-            
+        }
+        .padding()
+        .onAppear {
+            viewModel.startGame()
+        }
+        .onDisappear {
+            viewModel.stopTimer()
         }
     }
-    func stopTimer() {
-        timerRunning = false
-        timer?.invalidate()
-    }
-    
-    func checkIfCorrectAnswer(optionId: Int) {
-        if optionId == level.questions[i].correctAnswer {
-            points += level.questions[i].points
-            print(points)
-            
-            if i < level.questions.count - 1 {
-                i += 1
-                buttonBackgroundColor = .yellow
-                startGame()
-            } else {
-                finished = true
-                buttonBackgroundColor = .yellow
-            }
-        } else {
-            buttonBackgroundColor = .red
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                buttonBackgroundColor = .yellow
-            }
-        }
-    }
-    
 }
 
-
+#Preview {
+    QSOptions(viewModel: QSOptionsViewModel(qsNumber: 0, finished: false, points: 20, level: Level(
+        id: 1,
+        number: 1,
+        questions: [
+            Question(
+                id: 1,
+                title: "What is the capital of France?",
+                options: [
+                    Option(id: 1, String: "Paris"),
+                    Option(id: 2, String: "London"),
+                    Option(id: 3, String: "Rome"),
+                    Option(id: 4, String: "Berlin")
+                ],
+                time: 15,
+                correctAnswer: 1,
+                QuestionDifficulty: .easy,
+                points: 5
+            ),
+            Question(
+                id: 2,
+                title: "Which planet is known as the Red Planet?",
+                options: [
+                    Option(id: 1, String: "Earth"),
+                    Option(id: 2, String: "Mars"),
+                    Option(id: 3, String: "Venus"),
+                    Option(id: 4, String: "Jupiter")
+                ],
+                time: 15,
+                correctAnswer: 2,
+                QuestionDifficulty: .easy,
+                points: 5
+            ),
+            Question(
+                id: 3,
+                title: "What is the smallest prime number?",
+                options: [
+                    Option(id: 1, String: "0"),
+                    Option(id: 2, String: "1"),
+                    Option(id: 3, String: "2"),
+                    Option(id: 4, String: "3")
+                ],
+                time: 10,
+                correctAnswer: 3,
+                QuestionDifficulty: .easy,
+                points: 5
+            )
+        ]
+    )))
+}

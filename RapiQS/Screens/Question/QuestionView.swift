@@ -6,29 +6,31 @@
 //
 
 import SwiftUI
-
 struct QuestionView: View {
-    @State var i  : Int = 0
-    var level: Level
-    @State var finished = false
-    @State var points: Int = 0
+    @StateObject private var viewModel: QSOptionsViewModel
+    
+    init(level: Level) {
+        _viewModel = StateObject(wrappedValue: QSOptionsViewModel(qsNumber: 0, finished: false, points: 0, level: level))
+    }
+    
     var body: some View {
-        VStack{
-            QSOptions(i: $i, finished: $finished, points: $points,level: level, )
-            Spacer().frame(height: 80)
-            HStack{
-                Spacer()
-                
-            }.fullScreenCover(isPresented: $finished){
-                FinishLevelView(points: $points)
-            }.navigationBarBackButtonHidden(true)
-                .interactiveDismissDisabled(true)
+        
+        VStack {
+            QSOptions(viewModel: viewModel)
             
+            Spacer().frame(height: 80)
+            
+            HStack {
+                Spacer()
+            }
+            .fullScreenCover(isPresented: $viewModel.finished) {
+                FinishLevelView(points: $viewModel.points, levelNumber : $viewModel.level.number)
+            }
+            .navigationBarBackButtonHidden(true)
+            .interactiveDismissDisabled(true)
         }
     }
 }
-
-
 
 
 
