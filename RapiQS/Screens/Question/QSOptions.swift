@@ -56,8 +56,9 @@ struct QSOptions: View {
                                         let optionId = viewModel.level.questions[viewModel.qsNumber].options[index].id
                                         viewModel.checkIfCorrectAnswer(optionId: optionId)
                                         if viewModel.isFalseAnswer {
-                                            let impct = UIImpactFeedbackGenerator(style: .heavy)
-                                            impct.impactOccurred()
+                                            let impact = UIImpactFeedbackGenerator(style: .heavy)
+                                            impact.impactOccurred()
+                                            
                                         }
                                     }
                                     .shadow(color: viewModel.timeColor,radius: 5, x:0, y:2)
@@ -68,14 +69,45 @@ struct QSOptions: View {
                 }
                 
                 HStack {
-                    Text("Points: \(viewModel.points)")
-                        .rotationEffect(.degrees(-30))
+                    // Points Section
+                    HStack(spacing: 4) {
+                        Image(systemName: "star.fill")
+                            .foregroundStyle(.yellow)
+                            .shadow(color: .yellow.opacity(0.5), radius: 3)
+                        Text("\(viewModel.points)")
+                            .font(.title2)
+                            .bold()
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(
+                        Capsule()
+                            .fill(.ultraThinMaterial)
+                            .shadow(color: .black.opacity(0.1), radius: 5)
+                    )
+                    .rotationEffect(.degrees(-5))
+                    
                     Spacer()
-                    Text("Difficulty: \(viewModel.level.questions[viewModel.qsNumber].QuestionDifficulty)")
-                        .rotationEffect(.degrees(30))
-
-                        
-                }.padding()
+                    
+                    // Difficulty Section
+                    HStack(spacing: 6) {
+                        Text(viewModel.level.questions[viewModel.qsNumber].QuestionDifficulty.rawValue)
+                            .font(.headline)
+                            .bold()
+                        Image(systemName: difficultyIcon(viewModel.level.questions[viewModel.qsNumber].QuestionDifficulty.rawValue))
+                            .foregroundStyle(difficultyColor(viewModel.level.questions[viewModel.qsNumber].QuestionDifficulty.rawValue))
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(
+                        Capsule()
+                            .fill(.ultraThinMaterial)
+                            .shadow(color: .black.opacity(0.1), radius: 5)
+                    )
+                    .rotationEffect(.degrees(5))
+                }
+                .padding()
+                
             }
             
             FlyingCoinsView(trigger: $viewModel.isCorrect)
@@ -91,7 +123,27 @@ struct QSOptions: View {
             viewModel.changeTimeColor()
         }
         
+        
+        
     }
+    func difficultyIcon(_ difficulty: String) -> String {
+        switch difficulty.lowercased() {
+        case "easy": return "flame.fill"
+        case "medium": return "flame.fill"
+        case "hard": return "flame.fill"
+        default: return "flame.fill"
+        }
+    }
+    
+    func difficultyColor(_ difficulty: String) -> Color {
+        switch difficulty.lowercased() {
+        case "easy": return .green
+        case "medium": return .orange
+        case "hard": return .red
+        default: return .blue
+        }
+    }
+    
     
 }
 
