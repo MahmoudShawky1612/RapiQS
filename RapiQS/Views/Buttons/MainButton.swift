@@ -20,7 +20,7 @@ struct MainButton: View {
             .foregroundColor(Color(.systemBackground))
             .background(Color.brownPrimary)
             .cornerRadius(10)
-            .shadow(color: Color.brownPrimary, radius: 5, x: 0, y: 2)
+            .shadow(color: Color.brownPrimary, radius: 3, x: 0, y: 2)
         }
          .disabled(isLoading)
     }
