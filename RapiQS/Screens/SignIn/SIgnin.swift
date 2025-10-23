@@ -28,13 +28,13 @@ struct SIgnin: View {
                 
                 VStack(alignment: .center, spacing: 30) {
                     VStack(spacing: 8) {
-                                            Text("hey there!")
-                                                .font(.system(size: 36, weight: .bold))
-                                                .foregroundColor(Color.brownPrimary)
-                                            
-                                            Text("let's get you set up")
-                                                .font(.title3)
-                                                .foregroundColor(.secondary)
+                        Text("hey there!")
+                            .font(.system(size: 36, weight: .bold))
+                            .foregroundColor(Color.brownPrimary)
+                        
+                        Text("let's get you set up")
+                            .font(.title3)
+                            .foregroundColor(.secondary)
                     }.padding()
                     Spacer().frame(height: 70)
                     PhotosPicker( selection: $photoPickerItem, matching: .images){
@@ -78,7 +78,7 @@ struct SIgnin: View {
                     
                 }
                 
- 
+                
             }.alert(item : $signInViewModel.alertItem ){ alertItem in
                 Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
             }
