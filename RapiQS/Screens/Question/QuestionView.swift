@@ -24,7 +24,7 @@ struct QuestionView: View {
                 Spacer()
             }
             .fullScreenCover(isPresented: $viewModel.finished) {
-                FinishLevelView(points: $viewModel.points, levelNumber : $viewModel.level.number)
+                FinishLevelView(points: viewModel.points, levelNumber : $viewModel.level.number)
             }
             .navigationBarBackButtonHidden(true)
             .interactiveDismissDisabled(true)
