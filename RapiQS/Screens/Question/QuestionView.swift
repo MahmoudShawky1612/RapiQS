@@ -1,39 +1,87 @@
-//
-//  QuestionView.swift
-//  RapiQS
-//
-//  Created by DODJE on 21/10/2025.
-//
-
 import SwiftUI
+
 struct QuestionView: View {
     @StateObject private var viewModel: QSOptionsViewModel
+    @State private var showContent = false
     
     init(level: Level) {
         _viewModel = StateObject(wrappedValue: QSOptionsViewModel(qsNumber: 0, finished: false, points: 0, level: level))
     }
     
     var body: some View {
-        
-        VStack {
-            QSOptions(viewModel: viewModel)
+        ZStack {
+            // Background gradient
+            LinearGradient(
+                 colors: [
+                     .backSignOne,
+                    .backSignTwo
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
             
-            Spacer().frame(height: 80)
-            
-            HStack {
+            VStack(spacing: 0) {
+                // Header with progress
+                VStack(spacing: 12) {
+                   
+ 
+                    // Progress bar
+                    GeometryReader { geometry in
+                        ZStack(alignment: .leading) {
+                            Capsule()
+                                .fill(Color.black.opacity(0.1))
+                                .frame(height: 6)
+                            
+                            Capsule()
+                                .fill(
+                                    LinearGradient(
+                                        colors: [.yellow, .orange],
+                                        startPoint: .leading,
+                                        endPoint: .trailing
+                                    )
+                                )
+                                .frame(
+                                    width: geometry.size.width * CGFloat(viewModel.qsNumber + 1) / CGFloat(viewModel.level.questions.count),
+                                    height: 6
+                                )
+                                .animation(.spring(response: 0.5), value: viewModel.qsNumber)
+                        }
+                    }
+                    .frame(height: 6)
+                }
+                .padding(.horizontal, 20)
+                .padding(.top, 20)
+                .padding(.bottom, 10)
+                .opacity(showContent ? 1 : 0)
+                .offset(y: showContent ? 0 : -20)
+                
+                // Question content
+                QSOptions(viewModel: viewModel)
+                    .opacity(showContent ? 1 : 0)
+                    .scaleEffect(showContent ? 1 : 0.95)
+                
                 Spacer()
             }
-            .fullScreenCover(isPresented: $viewModel.finished) {
-                FinishLevelView(points: viewModel.points, levelNumber : $viewModel.level.number)
+        }
+        .fullScreenCover(isPresented: $viewModel.finished) {
+            FinishLevelView(points: viewModel.points, levelNumber: $viewModel.level.number)
+        }
+        .navigationBarBackButtonHidden(true)
+        .interactiveDismissDisabled(true)
+        .onAppear {
+            withAnimation(.easeOut(duration: 0.5)) {
+                showContent = true
             }
-            .navigationBarBackButtonHidden(true)
-            .interactiveDismissDisabled(true)
+        }
+        .onChange(of: viewModel.qsNumber) { _, _ in
+            showContent = false
+            withAnimation(.easeOut(duration: 0.4).delay(0.1)) {
+                showContent = true
+            }
         }
     }
 }
-
-
-
 
 #Preview {
     QuestionView(level: Level(
@@ -83,5 +131,5 @@ struct QuestionView: View {
                 points: 5
             )
         ]
-    ),)
+    ))
 }

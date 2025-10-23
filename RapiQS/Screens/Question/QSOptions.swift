@@ -32,7 +32,10 @@ struct QSOptions: View {
                     .frame(maxWidth: .infinity, minHeight: 150)
                     .font(.headline)
                     .foregroundColor(.primary)
-                    .background(LinearGradient(colors: [Color(.systemBackground), Color(.systemBackground).opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing))
+                    .background(
+                        LinearGradient( colors: [.cardOne, .cardTwo], startPoint: .topLeading, endPoint: .bottomTrailing )
+                        
+                    )
                     .cornerRadius(10)
                     .shadow(color: viewModel.timeColor ,radius: 5, x:0, y:2)
                     .multilineTextAlignment(.center)

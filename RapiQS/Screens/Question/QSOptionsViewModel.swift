@@ -14,7 +14,7 @@ class QSOptionsViewModel: ObservableObject {
     @Published var finished: Bool
     @Published var points: Int
     @Published var remainingTime: Double = 0
-    @Published var buttonBackgroundColor: LinearGradient = LinearGradient(colors: [Color(.systemBackground), Color(.systemBackground).opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
+    @Published var buttonBackgroundColor: LinearGradient = LinearGradient( colors: [.cardOne, .cardTwo], startPoint: .topLeading, endPoint: .bottomTrailing)
     @Published var isCorrect: Bool = false
     @Published var isFalseAnswer: Bool = false
     @Published var timerRunning: Bool = false
@@ -62,11 +62,12 @@ class QSOptionsViewModel: ObservableObject {
  
             if qsNumber < level.questions.count - 1 {
                 qsNumber += 1
-                buttonBackgroundColor = LinearGradient(colors: [Color(.systemBackground), Color(.systemBackground).opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                buttonBackgroundColor = LinearGradient( colors: [.cardOne, .cardTwo], startPoint: .topLeading, endPoint: .bottomTrailing )
+                
                 startGame()
             } else {
                 finished = true
-                buttonBackgroundColor = LinearGradient(colors: [Color(.systemBackground), Color(.systemBackground).opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                buttonBackgroundColor = LinearGradient( colors: [.cardOne, .cardTwo], startPoint: .topLeading, endPoint: .bottomTrailing )
             }
         } else {
             withAnimation(.default) {
@@ -85,7 +86,7 @@ class QSOptionsViewModel: ObservableObject {
             )
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                self.buttonBackgroundColor = LinearGradient(colors: [Color(.systemBackground), Color(.systemBackground).opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                self.buttonBackgroundColor = LinearGradient( colors: [.cardOne, .cardTwo], startPoint: .topLeading, endPoint: .bottomTrailing )
             }
         }
     }
