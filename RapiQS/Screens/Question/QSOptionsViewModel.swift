@@ -91,9 +91,9 @@ class QSOptionsViewModel: ObservableObject {
         }
     }
     func changeTimeColor() {
-        if remainingTime < 5 {
+        if remainingTime < 4 {
             timeColor = .red
-        } else if remainingTime < 10 {
+        } else if remainingTime < 7 {
             timeColor = .orange
         } else {
             timeColor = .blue

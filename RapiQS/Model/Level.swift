@@ -2,7 +2,7 @@
 //  Level.swift
 //  RapiQS
 //
-//  Created by DODJE on 21/5/2025.
+//  Created by DODJE on 21/10/2025.
 //
 
 import Foundation
@@ -53,7 +53,7 @@ class LevelService {
                         Option(id: 3, String: "Rome"),
                         Option(id: 4, String: "Berlin")
                     ],
-                    time: 7,
+                    time: 10,
                     correctAnswer: 1,
                     QuestionDifficulty: .easy,
                     points: 5
@@ -67,7 +67,7 @@ class LevelService {
                         Option(id: 3, String: "Venus"),
                         Option(id: 4, String: "Jupiter")
                     ],
-                    time: 7,
+                    time: 10,
                     correctAnswer: 2,
                     QuestionDifficulty: .easy,
                     points: 5
@@ -81,7 +81,7 @@ class LevelService {
                         Option(id: 3, String: "2"),
                         Option(id: 4, String: "3")
                     ],
-                    time: 5,
+                    time: 10,
                     correctAnswer: 3,
                     QuestionDifficulty: .easy,
                     points: 5
@@ -103,10 +103,10 @@ class LevelService {
                         Option(id: 3, String: "Java"),
                         Option(id: 4, String: "Dart")
                     ],
-                    time: 12,
+                    time: 7,
                     correctAnswer: 2,
                     QuestionDifficulty: .medium,
-                    points: 5
+                    points: 10
                 ),
                 Question(
                     id: 2,
@@ -117,10 +117,10 @@ class LevelService {
                         Option(id: 3, String: "1950"),
                         Option(id: 4, String: "1963")
                     ],
-                    time: 12,
+                    time: 20,
                     correctAnswer: 2,
                     QuestionDifficulty: .medium,
-                    points: 5
+                    points: 7
                 ),
                 Question(
                     id: 3,
@@ -131,10 +131,10 @@ class LevelService {
                         Option(id: 3, String: "Pablo Picasso"),
                         Option(id: 4, String: "Michelangelo")
                     ],
-                    time: 12,
+                    time: 7,
                     correctAnswer: 1,
                     QuestionDifficulty: .medium,
-                    points: 5
+                    points: 10
                 )
             ]
         ),
@@ -150,13 +150,13 @@ class LevelService {
                     options: [
                         Option(id: 1, String: "12"),
                         Option(id: 2, String: "14"),
-                        Option(id: 3, String: "7"),
+                        Option(id: 3, String: "15"),
                         Option(id: 4, String: "16")
                     ],
                     time: 7,
                     correctAnswer: 4,
                     QuestionDifficulty: .medium,
-                    points: 5
+                    points: 10
                 ),
                 Question(
                     id: 2,
@@ -170,7 +170,7 @@ class LevelService {
                     time: 7,
                     correctAnswer: 3,
                     QuestionDifficulty: .medium,
-                    points: 5
+                    points: 10
                 ),
                 Question(
                     id: 3,
@@ -184,7 +184,7 @@ class LevelService {
                     time: 7,
                     correctAnswer: 2,
                     QuestionDifficulty: .medium,
-                    points: 5
+                    points: 10
                 )
             ]
         ),
@@ -203,10 +203,10 @@ class LevelService {
                         Option(id: 3, String: "Gd"),
                         Option(id: 4, String: "Go")
                     ],
-                    time: 25,
+                    time: 4,
                     correctAnswer: 1,
                     QuestionDifficulty: .hard,
-                    points: 12
+                    points: 20
                 ),
                 Question(
                     id: 2,
@@ -217,10 +217,10 @@ class LevelService {
                         Option(id: 3, String: "Liver"),
                         Option(id: 4, String: "Kidney")
                     ],
-                    time: 25,
+                    time: 4,
                     correctAnswer: 3,
                     QuestionDifficulty: .hard,
-                    points: 12
+                    points: 20
                 ),
                 Question(
                     id: 3,
@@ -231,10 +231,10 @@ class LevelService {
                         Option(id: 3, String: "Newton"),
                         Option(id: 4, String: "Kepler")
                     ],
-                    time: 25,
+                    time: 4,
                     correctAnswer: 3,
                     QuestionDifficulty: .hard,
-                    points: 12
+                    points: 20
                 )
             ]
         ),
@@ -253,10 +253,10 @@ class LevelService {
                         Option(id: 3, String: "Neptune"),
                         Option(id: 4, String: "Uranus")
                     ],
-                    time: 25,
+                    time: 4,
                     correctAnswer: 2,
                     QuestionDifficulty: .hard,
-                    points: 12
+                    points: 20
                 ),
                 Question(
                     id: 2,
@@ -267,10 +267,10 @@ class LevelService {
                         Option(id: 3, String: "Bjarne Stroustrup"),
                         Option(id: 4, String: "Guido van Rossum")
                     ],
-                    time: 25,
+                    time: 4,
                     correctAnswer: 2,
                     QuestionDifficulty: .hard,
-                    points: 12
+                    points: 20
                 ),
                 Question(
                     id: 3,
@@ -281,10 +281,10 @@ class LevelService {
                         Option(id: 3, String: "Greece"),
                         Option(id: 4, String: "Italy")
                     ],
-                    time: 25,
+                    time: 4,
                     correctAnswer: 3,
                     QuestionDifficulty: .hard,
-                    points: 12
+                    points: 20
                 )
             ]
         )
